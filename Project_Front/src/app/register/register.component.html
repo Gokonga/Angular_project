@@ -1,0 +1,88 @@
+<form class="form" [formGroup]="registrationForm">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input 
+        class="form-control"
+        type="text" 
+        id="firstName" 
+        formControlName="firstName" 
+        [class.is-invalid]="formControls['firstName'].invalid && formControls['firstName'].touched"
+        >
+      <small [class.d-none]="formControls['firstName'].valid || formControls['firstName'].untouched"
+         class="text-danger">User Name is required
+      </small>
+      </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input 
+        class="form-control"
+        type="text" 
+        id="lastName"
+        formControlName="lastName"
+        [class.is-invalid]="formControls['lastName'].invalid && formControls['lastName'].touched"
+        >
+      <small [class.d-none]="formControls['lastName'].valid || formControls['lastName'].untouched" 
+        class="text-danger">
+        User Last Name Required
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input 
+        class="form-control"
+        type="email"
+        id="email"
+        formControlName="email"
+        [class.is-invalid]="formControls['email'].invalid && formControls['email'].touched"
+        >
+      <small [class.d-none]="formControls['email'].valid || formControls['email'].untouched" 
+       class="text-danger">
+       User Email Required
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        class="form-control"
+        type="password"
+        id="password"
+        formControlName="password"
+        [class.is-invalid]="formControls['password'].invalid && formControls['password'].touched"
+      >
+      <small [class.d-none]="formControls['password'].valid || formControls['password'].untouched" 
+       class="text-danger">
+       User Password Required
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input
+      class="form-control"
+        type="password"
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        [class.is-invalid]="formControls['confirmPassword'].invalid && formControls['confirmPassword'].touched"
+      >
+      <small [class.d-none]="formControls['confirmPassword'].valid || formControls['confirmPassword'].untouched" 
+       class="text-danger">
+       User Password Required
+      </small>
+    </div>
+
+    <div class="form-group">
+      <select
+      class="button"
+      id="jobId"
+      formControlName="jobId">
+        <option *ngFor="let job of jobOptions" [ngValue]="job">{{job.title}}</option>
+    </select>
+    </div>
+
+    <button class="submit"  (click)="Register()"  [disabled]="registrationForm.invalid">Submit</button>
+
+  </form>
+  
