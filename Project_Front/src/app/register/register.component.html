@@ -67,10 +67,10 @@
         formControlName="confirmPassword"
         [class.is-invalid]="formControls['confirmPassword'].invalid && formControls['confirmPassword'].touched"
       >
-      <small [class.d-none]="formControls['confirmPassword'].valid || formControls['confirmPassword'].untouched" 
-       class="text-danger">
-       User Password Required
-      </small>
+      <small *ngIf="formControls['confirmPassword'].hasError('passwordMismatch')" 
+         class="text-danger">
+         Passwords do not match.
+     </small>
     </div>
 
     <div class="form-group">

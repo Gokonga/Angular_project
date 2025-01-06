@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Job } from '../interfaces/job';
+import { AbstractControl,ValidationErrors,ValidatorFn } from '@angular/forms';
 
 
 @Injectable({
@@ -26,3 +27,22 @@ export class UserService {
   }
 
 }
+export function Checkpassword(password:string,confirmPassword:string):ValidatorFn {
+  return (group:AbstractControl):ValidationErrors|null=>{
+    const passwordControl =group.get(password);
+    const confirmPasswordControl=group.get(confirmPassword)
+
+    if(!passwordControl || !confirmPasswordControl){
+      return null;
+    }
+    if (passwordControl.value !== confirmPasswordControl.value){
+      confirmPasswordControl.setErrors({ passwordMismatch: true });
+      return {passwordMismatch:true};
+    }
+    else{
+    confirmPasswordControl.setErrors(null);
+    }
+    return null;
+  };
+}
+

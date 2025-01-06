@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Job } from '../interfaces/job';
 import { UserService } from '../services/user.service';
+import { Checkpassword } from '../services/user.service';
 
 
 @Component({
@@ -33,7 +34,11 @@ ngOnInit():void{
       confirmPassword: ['',Validators.required],
       jobId: [null,Validators.required]
 
-    })
+    },
+    {
+      validators:Checkpassword('password','confirmPassword')
+    }
+  )
   }
   get formControls(){
     return this.registrationForm.controls;
