@@ -39,7 +39,7 @@
         >
       <small [class.d-none]="formControls['email'].valid || formControls['email'].untouched" 
        class="text-danger">
-       User Email Required
+       Enter a valid email address
       </small>
     </div>
 
@@ -54,7 +54,7 @@
       >
       <small [class.d-none]="formControls['password'].valid || formControls['password'].untouched" 
        class="text-danger">
-       User Password Required
+       User Password must be atleast 6 charachter
       </small>
     </div>
 
@@ -83,6 +83,7 @@
     </div>
 
     <button class="submit"  (click)="Register()"  [disabled]="registrationForm.invalid">Submit</button>
+    <button class="button" (click)="goToLogin()">Go To Login</button>
 
   </form>
   

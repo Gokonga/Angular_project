@@ -5882,11 +5882,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Desktop\\Angular-Project\\Project-API-main\\Database\\Database.csproj",
+      "projectUniqueName": "D:\\code\\angular\\git\\Angular_project\\Project-API-main\\Database\\Database.csproj",
       "projectName": "Database",
-      "projectPath": "C:\\Users\\user\\Desktop\\Angular-Project\\Project-API-main\\Database\\Database.csproj",
+      "projectPath": "D:\\code\\angular\\git\\Angular_project\\Project-API-main\\Database\\Database.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Desktop\\Angular-Project\\Project-API-main\\Database\\obj\\",
+      "outputPath": "D:\\code\\angular\\git\\Angular_project\\Project-API-main\\Database\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -5901,8 +5901,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\user\\Desktop\\Angular-Project\\Project-API-main\\Business\\Business.csproj": {
-              "projectPath": "C:\\Users\\user\\Desktop\\Angular-Project\\Project-API-main\\Business\\Business.csproj"
+            "D:\\code\\angular\\git\\Angular_project\\Project-API-main\\Business\\Business.csproj": {
+              "projectPath": "D:\\code\\angular\\git\\Angular_project\\Project-API-main\\Business\\Business.csproj"
             }
           }
         }

@@ -40,3 +40,17 @@ C:\Users\user\Desktop\Angular-Project\Project-API-main\Business\obj\Debug\net6.0
 C:\Users\user\Desktop\Angular-Project\Project-API-main\Business\obj\Debug\net6.0\Business.pdb
 C:\Users\user\Desktop\Angular-Project\Project-API-main\Business\obj\Debug\net6.0\Business.genruntimeconfig.cache
 C:\Users\user\Desktop\Angular-Project\Project-API-main\Business\obj\Debug\net6.0\ref\Business.dll
+D:\code\angular\git\Angular_project\Project-API-main\Business\bin\Debug\net6.0\Business.deps.json
+D:\code\angular\git\Angular_project\Project-API-main\Business\bin\Debug\net6.0\Business.runtimeconfig.json
+D:\code\angular\git\Angular_project\Project-API-main\Business\bin\Debug\net6.0\Business.dll
+D:\code\angular\git\Angular_project\Project-API-main\Business\bin\Debug\net6.0\Business.pdb
+D:\code\angular\git\Angular_project\Project-API-main\Business\obj\Debug\net6.0\Business.csproj.AssemblyReference.cache
+D:\code\angular\git\Angular_project\Project-API-main\Business\obj\Debug\net6.0\Business.GeneratedMSBuildEditorConfig.editorconfig
+D:\code\angular\git\Angular_project\Project-API-main\Business\obj\Debug\net6.0\Business.AssemblyInfoInputs.cache
+D:\code\angular\git\Angular_project\Project-API-main\Business\obj\Debug\net6.0\Business.AssemblyInfo.cs
+D:\code\angular\git\Angular_project\Project-API-main\Business\obj\Debug\net6.0\Business.csproj.CoreCompileInputs.cache
+D:\code\angular\git\Angular_project\Project-API-main\Business\obj\Debug\net6.0\Business.dll
+D:\code\angular\git\Angular_project\Project-API-main\Business\obj\Debug\net6.0\refint\Business.dll
+D:\code\angular\git\Angular_project\Project-API-main\Business\obj\Debug\net6.0\Business.pdb
+D:\code\angular\git\Angular_project\Project-API-main\Business\obj\Debug\net6.0\Business.genruntimeconfig.cache
+D:\code\angular\git\Angular_project\Project-API-main\Business\obj\Debug\net6.0\ref\Business.dll

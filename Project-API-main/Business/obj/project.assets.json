@@ -5858,11 +5858,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Desktop\\Angular-Project\\Project-API-main\\Business\\Business.csproj",
+      "projectUniqueName": "D:\\code\\angular\\git\\Angular_project\\Project-API-main\\Business\\Business.csproj",
       "projectName": "Business",
-      "projectPath": "C:\\Users\\user\\Desktop\\Angular-Project\\Project-API-main\\Business\\Business.csproj",
+      "projectPath": "D:\\code\\angular\\git\\Angular_project\\Project-API-main\\Business\\Business.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Desktop\\Angular-Project\\Project-API-main\\Business\\obj\\",
+      "outputPath": "D:\\code\\angular\\git\\Angular_project\\Project-API-main\\Business\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"

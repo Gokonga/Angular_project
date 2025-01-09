@@ -1,9 +1,9 @@
 import { Component} from '@angular/core';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
-import { Job } from '../interfaces/job';
-import { UserService } from '../services/user.service';
-import { Checkpassword } from '../services/user.service';
-
+import { Job } from '../../interfaces/job';
+import { UserService } from '../../services/user.service';
+import { checkPassword } from '../validators/checkPassword.Validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,14 +18,15 @@ export class RegisterComponent {
   constructor(
     private userService:UserService,
     private fb:FormBuilder,
+    private router:Router
   ){}
 
 ngOnInit():void{
-  this.CreateForm();
+  this.CreateRegForm();
   this.fetchJobOptions();
 }
 
-  CreateForm():void{
+  CreateRegForm():void{
     this.registrationForm=this.fb.group({
       firstName: ['',Validators.required],
       lastName: ['',Validators.required],
@@ -36,7 +37,7 @@ ngOnInit():void{
 
     },
     {
-      validators:Checkpassword('password','confirmPassword')
+      validators:checkPassword
     }
   )
   }
@@ -72,6 +73,10 @@ ngOnInit():void{
       this.registrationForm.reset();
 
     }
+  }
+
+  goToLogin(){
+    this.router.navigate(['/login']);
   }
 
 }

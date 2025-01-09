@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable,of } from 'rxjs';
 import { Job } from '../interfaces/job';
 import { AbstractControl,ValidationErrors,ValidatorFn } from '@angular/forms';
 
@@ -22,27 +22,27 @@ export class UserService {
   }
 
   registerUser(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, userData);
     console.log("user submitted");
+    return this.http.post(`${this.apiUrl}/register`, userData);
+    
   }
 
-}
-export function Checkpassword(password:string,confirmPassword:string):ValidatorFn {
-  return (group:AbstractControl):ValidationErrors|null=>{
-    const passwordControl =group.get(password);
-    const confirmPasswordControl=group.get(confirmPassword)
+  loginUser(userData:any):Observable<any>{
+    const headers=new HttpHeaders({'content-type':'application/json'});
+    return this.http.post(`${this.apiUrl}/login`,userData,
+    {headers, responseType: 'text' as 'json' });
+  }
 
-    if(!passwordControl || !confirmPasswordControl){
-      return null;
-    }
-    if (passwordControl.value !== confirmPasswordControl.value){
-      confirmPasswordControl.setErrors({ passwordMismatch: true });
-      return {passwordMismatch:true};
-    }
-    else{
-    confirmPasswordControl.setErrors(null);
-    }
-    return null;
-  };
+
+
+
+
 }
+
+
+
+
+
+
+
 
