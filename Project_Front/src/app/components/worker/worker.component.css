@@ -1,79 +1,93 @@
-
+/* Center the content of the page */
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
     font-family: Arial, sans-serif;
-    margin: 20px;
-    line-height: 1.6;
+    background-color: #f4f4f4;
   }
   
-
+  /* Wrapper for the content to center everything in one container */
+  .container {
+    text-align: center;
+    max-width: 1000px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  /* Styling for buttons */
   .button {
-    background-color: #007bff;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #4CAF50;
     color: white;
-    padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
-    margin-right: 10px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
   }
   
   .button:hover {
-    background-color: #0056b3;
+    background-color: #45a049;
   }
   
-  /* Table */
+  /* Style for the headings */
+  h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    color: #555;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+  /* Table Styling */
   table {
     width: 100%;
+    margin-top: 20px;
     border-collapse: collapse;
+    text-align: center;
+  }
+  
+  th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  td {
+    background-color: #fafafa;
+  }
+  
+  td .empty-slot {
+    color: #ccc;
+  }
+  
+  /* Form Fields Styling */
+  mat-form-field {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 300px;
+    display: inline-block;
+  }
+  
+  /* Styling for the mat-button-toggle-group */
+  mat-button-toggle-group {
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
   }
   
-  thead th {
-    background-color: #f4f4f4;
-    color: #333;
-    font-weight: bold;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-  }
-  
-  tbody td {
-    text-align: center;
-    padding: 8px;
-    border: 1px solid #ddd;
-  }
-  
-
-  tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
-  }
-  
-  tbody tr:nth-child(even) {
-    background-color: #ffffff;
-  }
-  
-
-  .empty-slot {
-    color: gray;
-    font-style: italic;
-  }
-  
-
-  thead th div {
-    font-size: 14px;
-    margin: 5px 0;
-  }
-  
-
-  @media (max-width: 768px) {
-    table {
-      font-size: 12px;
-    }
-  
-    .button {
-      padding: 8px 12px;
-      font-size: 12px;
-    }
+  mat-button-toggle {
+    margin: 0 10px;
   }
   

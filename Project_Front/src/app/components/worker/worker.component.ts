@@ -7,6 +7,8 @@ import { Job } from 'src/app/interfaces/job';
 
 
 
+
+
 @Component({
   selector: 'app-worker',
   templateUrl: './worker.component.html',
@@ -19,6 +21,8 @@ export class WorkerComponent {
   WeekSchedule:CurrentWeekSchedule[]=[];
   WeekStart:Date=new Date();
   WeekEnd:Date=new Date();
+  selectedDate: Date | null = null;
+  selectedShift='';
 
   constructor(
     private userservice:UserService,
@@ -94,7 +98,12 @@ export class WorkerComponent {
       }
     });
   }
+  shiftselect(){
 
+
+  }
+
+ 
   logout(){
     this.userservice.logoutUser();
   }
