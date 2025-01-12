@@ -1,1 +1,22 @@
 <p>worker works!</p>
+<button class="button" (click)="goPreviousWeek()">PreviousWeek</button>
+<button class="button" (click)="goNextWeek()">NextWeek</button>
+
+<p>Week from {{ currentWeekStart | date:'mediumDate' }} to {{ currentWeekEnd | date:'mediumDate' }}</p>
+    <table border="1">
+        <thead>
+            
+            <th *ngFor="let i of [0].constructor(7); let index = index">{{getdate(currentWeekStart,index)}}
+            
+        </thead>
+        <tbody>
+            <tr *ngFor="let schedule of currentWeek">{{schedule.startTime.getDate()}}</tr>
+            <tr *ngFor="let schedule of currentWeek">{{schedule.startTime.getDay()}}</tr>
+            
+        </tbody>
+
+
+    </table>
+
+    
+  

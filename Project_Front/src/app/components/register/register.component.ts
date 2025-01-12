@@ -14,6 +14,7 @@ export class RegisterComponent {
 
   registrationForm!:FormGroup;
   jobOptions: Job[] = [];
+  errorMessage='';
 
   constructor(
     private userService:UserService,
@@ -53,6 +54,7 @@ ngOnInit():void{
       },
       error:(error)=>{
         console.error('error Fetching job options',error);
+        
       }
     });
   }
@@ -65,12 +67,13 @@ ngOnInit():void{
       this.userService.registerUser({...userData,jobId: job.id}).subscribe({
         next:(response)=>{
           console.log("Registration successful: ",response);
+          this.registrationForm.reset();
         },
         error: (error) => {
           console.log('Registration failed: ', error);
+          this.errorMessage=error.status;
         }
       });
-      this.registrationForm.reset();
 
     }
   }

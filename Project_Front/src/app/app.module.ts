@@ -10,13 +10,14 @@ import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { WorkerComponent } from './components/worker/worker.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
     AdminComponent,
-    WorkerComponent
+    WorkerComponent,
   ],
   imports: [
     BrowserModule,

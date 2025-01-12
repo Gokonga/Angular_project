@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable,of } from 'rxjs';
+import { Observable} from 'rxjs';
 import { Job } from '../interfaces/job';
-import { AbstractControl,ValidationErrors,ValidatorFn } from '@angular/forms';
-
+import { Dashboard } from '../interfaces/dashboard';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,8 @@ export class UserService {
   private apiUrl = 'https://localhost:44330/api/User';
 
   constructor(
-    private http:HttpClient
+    private http:HttpClient,
+    private route:Router
   ) { }
 
   getJobOptions(): Observable<Job[]> {
@@ -34,7 +34,16 @@ export class UserService {
   }
 
 
+  logoutUser():void{
+    localStorage.removeItem('token');
+    this.route.navigate(['/login']);
+  }
 
+  getSchedules():Observable<Dashboard[]>{
+    return this.http.get<Dashboard[]>(`${this.apiUrl}/dashboard`)
+  }  
+
+   
 
 
 }

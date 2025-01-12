@@ -60,7 +60,7 @@ export class LoginComponent {
         },
         error:(error) =>{
           console.log('login failed: ',error);
-          this.errormessage=error.error;
+          this.errormessage=error.status;
           
         }
       })
