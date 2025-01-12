@@ -46,7 +46,7 @@ export class LoginComponent {
           const jwtToken=response;
           localStorage.setItem('token',jwtToken);
 
-          const decodedToken=this.decodeToken(jwtToken);
+          const decodedToken=this.userService.decodeToken(jwtToken);
           const role=decodedToken?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
 
           if(role==='1'){
@@ -67,14 +67,7 @@ export class LoginComponent {
     }
   }
 
-  private decodeToken(token: string): any{
-    try{
-      return JSON.parse(atob(token.split('.')[1]));
-    }catch(e){
-      console.error('Error decoding JWT token', e);
-      return null;
-    }
-  }
+  
 
 
   goToRegister(){

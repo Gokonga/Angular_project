@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';  
+import { UserService } from '../services/user.service';
 
 
 @Injectable({
@@ -7,13 +8,15 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 })
 
 export class adminGuard implements CanActivate{
-  constructor(private route:Router){}
+  constructor(
+    private route:Router,
+    private userService:UserService
+  ){}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean
    {
-
     const jwtToken=localStorage.getItem('token');
-    const decodedToken=this.decodeToken(jwtToken);
+    const decodedToken=this.userService.decodeToken(jwtToken);
     const role=decodedToken?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
 
     if(role=='1'){
@@ -24,15 +27,5 @@ export class adminGuard implements CanActivate{
       return false;
     }  
   }
-  
-  private decodeToken(token: string | null): any{
-    if(!token) return null;
 
-    try{
-      return JSON.parse(atob(token.split('.')[1]));
-    }catch(e){
-      console.error('Error decoding JWT token', e);
-      return null;
-    }
-   }  
 };

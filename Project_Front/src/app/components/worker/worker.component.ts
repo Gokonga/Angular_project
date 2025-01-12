@@ -3,11 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import { CurrentWeekDates,CurrentWeekSchedule, Dashboard } from 'src/app/interfaces/dashboard';
 import { Job } from 'src/app/interfaces/job';
-
-
-
-
-
+import { workerRequest } from 'src/app/interfaces/workerRequest';
 
 @Component({
   selector: 'app-worker',
@@ -45,13 +41,9 @@ export class WorkerComponent {
     this.WeekEnd=end;
     this.WeekSchedule=this.Schedule.FilterArray(this.dashboard,this.WeekStart,this.WeekEnd);
     this.weekDates=this.Schedule.formatWeek(this.WeekStart,this.WeekEnd);
-    console.log("weekstart",this.WeekStart);
-    console.log("weeelend",this.WeekEnd);
   }
 
   goPreviousWeek(){
-    console.log("weekstart",this.WeekStart);
-    console.log("weeelend",this.WeekEnd);
     const{PreviousWeekStart,PreviousWeekEnd}=this.Schedule.getPreviousWeekStart(this.WeekStart);
     this.WeekStart=PreviousWeekStart;
     this.WeekEnd=PreviousWeekEnd;
@@ -61,8 +53,6 @@ export class WorkerComponent {
   }
 
   goNextWeek(){
-    console.log("weekstart",this.WeekStart);
-    console.log("weeelend",this.WeekEnd);
     const{NextWeekStart,NextWeekEnd}= this.Schedule.getNextWeekStart(this.WeekEnd);
     this.WeekStart=NextWeekStart;
     this.WeekEnd=NextWeekEnd;
@@ -98,8 +88,47 @@ export class WorkerComponent {
       }
     });
   }
-  shiftselect(){
+  addSchedule(){
+    if(this.selectedDate!=null){
+      const jwtToken=localStorage.getItem('token');
+      const decodedToken=this.userservice.decodeToken(jwtToken);
+      const user=decodedToken?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
+      const [startTime, endTime] = this.selectedShift.split('-');
+      const adjustedDate=this.Schedule.adjustToLocalTimezone(this.selectedDate);
+      console.log("Adjusted",adjustedDate)
 
+      console.log("selectedate",this.selectedDate.toISOString())
+
+      const request:workerRequest=({
+        startTime:adjustedDate.toISOString().split('T')[0]+startTime,
+        endTime:adjustedDate.toISOString().split('T')[0]+endTime,
+        userId:Number(user)
+      });
+      
+      this.userservice.postSchedule(request).subscribe({
+       next:(response) => {
+          console.log('Schedule submitted successfully', response);
+        },
+        error:(err) => {
+          console.error('Error submitting schedule', err);
+          }
+        
+    });
+      }
+  }
+
+  getshifttime(todaysWorker:CurrentWeekSchedule):string{
+    const tempdate=new Date(todaysWorker.endTime.getTime()+10800000);
+    console.log("date1",todaysWorker.endTime)
+    console.log("date2",tempdate)
+    if(todaysWorker.endTime.getDate()<tempdate.getDate()){
+      return ("Evening")
+    }
+    else if(todaysWorker.endTime.getDate()==tempdate.getDate()){
+      return ("Morning")
+    }
+    else
+        return "i dont know :("
 
   }
 

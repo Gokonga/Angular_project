@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Dashboard } from '../interfaces/dashboard';
 import { CurrentWeekSchedule,CurrentWeekDates } from '../interfaces/dashboard';
+import { workerRequest } from '../interfaces/workerRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,8 @@ export class ScheduleService {
     getWeekRange(date: Date): { start: Date; end: Date } {
       const start = new Date(date);
       start.setDate(start.getDate() - start.getDay());
-      console.log("test1",start); 
       const end = new Date(start);
       end.setDate(start.getDate() + 6); 
-      console.log("test2",end);
       return { start, end };
     }
   
@@ -77,7 +76,15 @@ export class ScheduleService {
     }
     return  thisweek;
   }
+
+  adjustToLocalTimezone(date: Date): Date {
+    const timezoneOffset = date.getTimezoneOffset();
+
+    const adjustedDate = new Date(date.getTime() - timezoneOffset * 60000);
     
+    return adjustedDate;
+  }
+
   }
 
   

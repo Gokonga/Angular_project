@@ -19,15 +19,14 @@
           <td>{{ job.title }}</td>
           <td *ngFor="let weekday of weekDates"> 
             <div *ngFor="let day of WeekSchedule">
-              <span *ngIf="day.jobTitle==job.title && day.startTime.getDate()==weekday.day">{{ day.firstName }}&nbsp;{{ day.lastName }}</span>
+              <span *ngIf="day.jobTitle==job.title && day.startTime.getDate()==weekday.day">{{getshifttime(day)}}-{{ day.firstName }}&nbsp;{{ day.lastName }}</span>
               <span *ngIf="day.jobTitle !== job.title" class="empty-slot"></span>
-            </div>
+            </div>  
           </td>
         </tr>
       </tbody>
     </table>
   
-    <!-- Date Picker -->
     <h2>Choose Date</h2>
     <mat-form-field>
       <mat-label>Choose a date</mat-label>
@@ -37,15 +36,13 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   
-    <!-- Shift Selection -->
     <div>
       <mat-button-toggle-group [(ngModel)]="selectedShift" name="shift">
-        <mat-button-toggle value="morning">Morning Shift</mat-button-toggle>
-        <mat-button-toggle value="evening">Evening Shift</mat-button-toggle>
+        <mat-button-toggle value="T08:00:00.000Z-T18:00:00.000Z">Morning Shift</mat-button-toggle>
+        <mat-button-toggle value="T18:00:00.000Z-T22:00:00.000Z">Evening Shift</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
-  
-    <!-- Add Schedule Button -->
-    <button class="button">Add Schedule</button>
+
+    <button class="button" (click)="addSchedule()" [disabled]="selectedDate==null">Add Schedule</button>
   </div>
   
