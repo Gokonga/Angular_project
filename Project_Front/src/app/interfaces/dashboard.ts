@@ -12,7 +12,7 @@ export interface Dashboard{
 
 }
 
-export interface CurrentWeek {
+export interface CurrentWeekSchedule {
 
     id: number,
     startTime: Date,
@@ -25,4 +25,10 @@ export interface CurrentWeek {
     isApproved: boolean
 
 
+}
+
+export interface CurrentWeekDates{
+    month:string,
+    weekday:string,
+    day:number
 }

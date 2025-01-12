@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { ScheduleService } from 'src/app/services/schedule.service';
-import { Dashboard } from 'src/app/interfaces/dashboard';
-import { CurrentWeek } from 'src/app/interfaces/dashboard';
+import { CurrentWeekDates,CurrentWeekSchedule, Dashboard } from 'src/app/interfaces/dashboard';
 import { Job } from 'src/app/interfaces/job';
 
 
@@ -14,11 +13,12 @@ import { Job } from 'src/app/interfaces/job';
   styleUrls: ['./worker.component.css']
 })
 export class WorkerComponent {
+  weekDates:CurrentWeekDates[]=[]
   jobs:Job[]=[];
   dashboard:Dashboard[]=[];
-  currentWeek:CurrentWeek[]=[];
-  currentWeekStart:Date=new Date();
-  currentWeekEnd:Date=new Date();
+  WeekSchedule:CurrentWeekSchedule[]=[];
+  WeekStart:Date=new Date();
+  WeekEnd:Date=new Date();
 
   constructor(
     private userservice:UserService,
@@ -35,32 +35,42 @@ export class WorkerComponent {
 
   updateWeekRange(){
     this.fetchSchedules();
-    const{start,end}=this.Schedule.getWeekRange(this.currentWeekStart);
-    this.currentWeekStart=start;
-    this.currentWeekEnd=end;
-    this.currentWeek=this.Schedule.FilterArray(this.dashboard,this.currentWeekStart,this.currentWeekEnd);
+    
+    const{start,end}=this.Schedule.getWeekRange(this.WeekStart);
+    this.WeekStart=start;
+    this.WeekEnd=end;
+    this.WeekSchedule=this.Schedule.FilterArray(this.dashboard,this.WeekStart,this.WeekEnd);
+    this.weekDates=this.Schedule.formatWeek(this.WeekStart,this.WeekEnd);
+    console.log("weekstart",this.WeekStart);
+    console.log("weeelend",this.WeekEnd);
   }
 
   goPreviousWeek(){
-    const{PreviousWeekStart,PreviousWeekEnd}=this.Schedule.getPreviousWeekStart(this.currentWeekStart);
-    this.currentWeekStart=PreviousWeekStart;
-    this.currentWeekEnd=PreviousWeekEnd;
-    this.currentWeek=this.Schedule.FilterArray(this.dashboard,this.currentWeekStart,this.currentWeekEnd);
+    console.log("weekstart",this.WeekStart);
+    console.log("weeelend",this.WeekEnd);
+    const{PreviousWeekStart,PreviousWeekEnd}=this.Schedule.getPreviousWeekStart(this.WeekStart);
+    this.WeekStart=PreviousWeekStart;
+    this.WeekEnd=PreviousWeekEnd;
+    this.WeekSchedule=this.Schedule.FilterArray(this.dashboard,this.WeekStart,this.WeekEnd);
+    this.weekDates=this.Schedule.formatWeek(this.WeekStart,this.WeekEnd);
     
   }
 
   goNextWeek(){
-    const{NextWeekStart,NextWeekEnd}= this.Schedule.getNextWeekStart(this.currentWeekEnd);
-    this.currentWeekStart=NextWeekStart;
-    this.currentWeekEnd=NextWeekEnd;
-    this.currentWeek=this.Schedule.FilterArray(this.dashboard,this.currentWeekStart,this.currentWeekEnd);
+    console.log("weekstart",this.WeekStart);
+    console.log("weeelend",this.WeekEnd);
+    const{NextWeekStart,NextWeekEnd}= this.Schedule.getNextWeekStart(this.WeekEnd);
+    this.WeekStart=NextWeekStart;
+    this.WeekEnd=NextWeekEnd;
+    this.WeekSchedule=this.Schedule.FilterArray(this.dashboard,this.WeekStart,this.WeekEnd);
+    this.weekDates=this.Schedule.formatWeek(this.WeekStart,this.WeekEnd);
   
   }
 
   
   fetchSchedules(): void {
-    // const start = this.currentWeekStart.toISOString().split('T')[0]; 
-    // const end = this.currentWeekEnd.toISOString().split('T')[0];
+    // const start = this.WeekStart.toISOString().split('T')[0]; 
+    // const end = this.WeekEnd.toISOString().split('T')[0];
     this.userservice.getSchedules().subscribe({
       next:(response)=>{
         console.log("dashboard",response);
@@ -85,15 +95,6 @@ export class WorkerComponent {
     });
   }
 
-  getdate(date:Date,index:number){
-   return  this.Schedule.formatMonth(date,index);
-  
-  }
-
-  
-
-  
-  
   logout(){
     this.userservice.logoutUser();
   }

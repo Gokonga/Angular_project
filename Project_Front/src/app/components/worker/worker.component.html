@@ -2,17 +2,27 @@
 <button class="button" (click)="goPreviousWeek()">PreviousWeek</button>
 <button class="button" (click)="goNextWeek()">NextWeek</button>
 
-<p>Week from {{ currentWeekStart | date:'mediumDate' }} to {{ currentWeekEnd | date:'mediumDate' }}</p>
-    <table border="1">
-        <thead>
-            
-            <th *ngFor="let i of [0].constructor(7); let index = index">{{getdate(currentWeekStart,index)}}
-            
-        </thead>
+<p>Week from {{ WeekStart | date:'mediumDate' }} to {{ WeekEnd | date:'mediumDate' }}</p>
+    <table border="1" *ngIf="weekDates?.length && jobs?.length">
+        <tr>
+            <th>&nbsp;</th>
+            <th *ngFor="let day of weekDates">
+                <div>{{ day.day }} {{ day.month }}</div>
+                <div>{{ day.weekday }}</div>
+            </th>
+        </tr>
         <tbody>
-            <tr *ngFor="let schedule of currentWeek">{{schedule.startTime.getDate()}}</tr>
-            <tr *ngFor="let schedule of currentWeek">{{schedule.startTime.getDay()}}</tr>
+            <tr *ngFor="let job of jobs">
+                <td>{{job.title}} </td>
+                <td *ngFor="let weekday of weekDates"> 
+                    <div *ngFor="let day of WeekSchedule ">
+                    <span *ngIf="day.jobTitle==job.title && day.startTime.getDate()==weekday.day">{{day.firstName}}&nbsp;{{day.lastName}} </span>
+                    <span *ngIf="day.jobTitle !== job.title"  class="empty-slot" ></span>
+                    </div>
+                </td>
+            </tr>
             
+  
         </tbody>
 
 

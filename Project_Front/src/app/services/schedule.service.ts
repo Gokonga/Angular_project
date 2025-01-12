@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Dashboard } from '../interfaces/dashboard';
-import { CurrentWeek } from '../interfaces/dashboard';
+import { CurrentWeekSchedule,CurrentWeekDates } from '../interfaces/dashboard';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +9,11 @@ export class ScheduleService {
 
     getWeekRange(date: Date): { start: Date; end: Date } {
       const start = new Date(date);
-      start.setDate(start.getDate() - start.getDay()); 
+      start.setDate(start.getDate() - start.getDay());
+      console.log("test1",start); 
       const end = new Date(start);
       end.setDate(start.getDate() + 6); 
+      console.log("test2",end);
       return { start, end };
     }
   
@@ -20,7 +22,6 @@ export class ScheduleService {
       PreviousWeekStart.setDate(date.getDate() - 7);
       const PreviousWeekEnd=new Date(date);
       PreviousWeekEnd.setDate(date.getDate()-1);
-      console.log("previous",PreviousWeekStart,PreviousWeekEnd);
       return {PreviousWeekStart,PreviousWeekEnd};
     }
   
@@ -29,7 +30,6 @@ export class ScheduleService {
       NextWeekStart.setDate(date.getDate()+1);
       const NextWeekEnd=new Date(date);
       NextWeekEnd.setDate(date.getDate()+7);
-      console.log("next",NextWeekStart,NextWeekEnd);
       return {NextWeekStart,NextWeekEnd};
 
     }
@@ -38,7 +38,7 @@ export class ScheduleService {
       dashboard:Dashboard[],
       currentWeekStart:Date,
       currentWeekEnd:Date
-    ):CurrentWeek[]{
+    ):CurrentWeekSchedule[]{
       return dashboard.filter(item => {
         const itemStartTime = new Date(item.startTime);
         const itemEndTime = new Date(item.endTime);
@@ -58,15 +58,24 @@ export class ScheduleService {
       }));
   }
   
-  formatMonth(date:Date,index:number) {
+  formatWeek(start:Date,end:Date):CurrentWeekDates[] {
     const monthNames = [
       "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
-   
-    const tempdate=new Date(date);
-    tempdate.setDate(date.getDate()+index);
-    return `${tempdate.getDate()} ${monthNames[tempdate.getMonth()]}`;
+    const weekdays=[
+      "Monday", "Tuesday", "Wednesday", 
+      "Thursday", "Friday", "Saturday", "Sunday"
+    ]
+    const thisweek:CurrentWeekDates[]=[];
+    for(let i=new Date(start); i<=end; i.setDate(i.getDate() + 1)){
+      thisweek.push({
+        day: i.getDate(),
+        weekday:weekdays[i.getDay()],
+        month: monthNames[i.getMonth()],
+      }); 
+    }
+    return  thisweek;
   }
     
   }
