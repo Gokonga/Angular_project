@@ -56,6 +56,13 @@ export class ScheduleService {
         isApproved: item.isApproved,
       }));
   }
+
+  getPendingRequests( dashboard:Dashboard[]):Dashboard[]{
+    return dashboard.filter(item =>{
+      return (item.isApproved==false)});
+
+  }
+
   
   formatWeek(start:Date,end:Date):CurrentWeekDates[] {
     const monthNames = [
@@ -78,8 +85,8 @@ export class ScheduleService {
   }
 
   adjustToLocalTimezone(date: Date): Date {
-    const timezoneOffset = date.getTimezoneOffset();
 
+    const timezoneOffset = date.getTimezoneOffset(); 
     const adjustedDate = new Date(date.getTime() - timezoneOffset * 60000);
     
     return adjustedDate;

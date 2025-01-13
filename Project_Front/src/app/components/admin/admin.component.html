@@ -1,2 +1,96 @@
-<p>admin works!</p>
-<button class="button" (click)="logout()" >Logout</button>
+<div class="container">
+    <h1>Admin</h1>
+    
+    <button class="button" (click)="goPreviousWeek()">Previous Week</button>
+    <button class="button" (click)="goNextWeek()">Next Week</button>
+  
+    <h2>{{ WeekStart | date:'mediumDate' }} - {{ WeekEnd | date:'mediumDate' }}</h2>
+  
+    <table border="1" *ngIf="weekDates?.length && jobs?.length">
+      <tr>
+        <th>&nbsp;</th>
+        <th *ngFor="let day of weekDates">
+          <div>{{ day.day }} {{ day.month }}</div>
+          <div>{{ day.weekday }}</div>
+        </th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let job of jobs">
+          <td>{{ job.title }}</td>
+          <td *ngFor="let weekday of weekDates"> 
+            <div *ngFor="let day of WeekSchedule">
+              <span *ngIf="day.jobTitle==job.title && day.startTime.getDate()==weekday.day">{{getshifttime(day)}}-{{ day.firstName }}&nbsp;{{ day.lastName }}</span>
+              <span *ngIf="day.jobTitle !== job.title" class="empty-slot"></span>
+            </div>  
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+<div>
+<button class="button" (click)="AproveSchedules()">Schedule requests</button>
+  <div *ngIf="showRequests==true">
+    <ul class="scrollable-box"  *ngFor="let worker of PendingSchedule;">
+        <li>Id:-{{worker.id}}</li>
+        <li>StartTime:-{{worker.startTime}}</li>
+        <li>EndTime:-{{worker.endTime}}</li>
+        <li>UserId:-{{worker.userId}}</li>
+        <li>FirstName:-{{worker.firstName}}</li>
+        <li>LastName:-{{worker.lastName}}</li>
+        <li>JobId:-{{worker.jobId}}</li>
+        <li>JobTitle:-{{worker.jobTitle}}</li>
+        <li>IsApproved:-{{worker.isApproved}}</li>
+
+        <button class="button" (click)="acceptRequest(worker.id)">Accept Schedule</button>
+        <button class="button" (click)="removeRequest(worker.id)">Decline Schedule</button>
+    </ul>
+  </div>
+  <button class="button" (click)="ShowWholeDashboard()">Show Dashboard list</button>
+  <div *ngIf="showDashboard==true">
+    <ul class="scrollable-box"  *ngFor="let worker of dashboard;">
+        <li>Id:-{{worker.id}}</li>
+        <li>StartTime:-{{worker.startTime}}</li>
+        <li>EndTime:-{{worker.endTime}}</li>
+        <li>UserId:-{{worker.userId}}</li>
+        <li>FirstName:-{{worker.firstName}}</li>
+        <li>LastName:-{{worker.lastName}}</li>
+        <li>JobId:-{{worker.jobId}}</li>
+        <li>JobTitle:-{{worker.jobTitle}}</li>
+        <li>IsApproved:-{{worker.isApproved}}</li>
+
+        <button class="button" (click)="removeRequest(worker.id)">delete Working day</button>
+        
+    </ul>
+  </div>
+<button class="button" (click)="ShowUsers()">Show Users</button>
+  <div *ngIf="showUsers==true">
+    <ul class="scrollable-box" *ngFor="let user of users;">
+      <li>Id:-{{user.id}}</li>
+      <li>FirstName:-{{user.firstName}}</li>
+      <li>LastName:-{{user.lastName}}</li>
+      <li>JobId:-{{user.jobId}}</li>
+      <li>RoleId:-{{user.roleId}}</li>
+      <button class="button" (click)="removeUser(user.id)">delete User</button>
+      <label>enter new role(1-Admin, 2-Worker)</label>
+      <input [(ngModel)]="newId">
+      <button class="button" (click)="changeUserRole(user.id)">change User Role</button>
+    </ul>
+  </div>
+
+  <button class="button" (click)="showJobs()">Show Jobs</button>
+  <div *ngIf="ShowJobs==true">
+    <label>enter new job</label>
+    <input [(ngModel)]="newJob">
+    <button class="button" (click)="addNewJOb(newJob)">Add Job</button>
+    <ul class="scrollable-box" *ngFor="let job of jobs;">
+      <li>Id:-{{job.id}}</li>
+      <li>Title:-{{job.title}}</li>
+
+      <button class="button" (click)="removeJob(job.id)">delete Job</button>
+    </ul>
+  </div>
+
+</div>
+
+

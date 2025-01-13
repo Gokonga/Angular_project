@@ -22,8 +22,8 @@
         <small *ngIf="errormessage=='500'" class='text-danger' >Password incorrect</small>
     </div>
 
-    <button type="submit" (click)="Login()" [disabled]="loginForm.invalid" >Login</button>
-    <button type="button" (click)="goToRegister()" >Register</button>
+    <button class="button" (click)="Login()" [disabled]="loginForm.invalid" >Login</button>
+    <button class="button" (click)="goToRegister()" >Register</button>
     
     
 

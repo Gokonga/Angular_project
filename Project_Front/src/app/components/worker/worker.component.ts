@@ -63,8 +63,6 @@ export class WorkerComponent {
 
   
   fetchSchedules(): void {
-    // const start = this.WeekStart.toISOString().split('T')[0]; 
-    // const end = this.WeekEnd.toISOString().split('T')[0];
     this.userservice.getSchedules().subscribe({
       next:(response)=>{
         console.log("dashboard",response);

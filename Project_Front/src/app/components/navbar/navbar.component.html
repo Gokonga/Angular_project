@@ -1,0 +1,9 @@
+<nav class="navbar">
+    <ul>
+      <li><a>Shift Controller</a></li>
+      <li><a *ngIf="isAdmin" routerLink="/admin">Admin Dashboard</a></li>
+      <li><a *ngIf="isWorker" routerLink="/worker">Worker Dashboard</a></li>
+      <li *ngIf="isLoggedIn"><button (click)="logout()">Logout</button></li>
+    </ul>
+  </nav>
+  

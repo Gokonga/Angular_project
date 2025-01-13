@@ -1,4 +1,4 @@
-/* Center the content of the page */
+
 body {
     display: flex;
     justify-content: center;
@@ -9,7 +9,6 @@ body {
     background-color: #f4f4f4;
   }
   
-  /* Wrapper for the content to center everything in one container */
   .container {
     text-align: center;
     max-width: 1000px;
@@ -19,7 +18,7 @@ body {
     border-radius: 8px;
   }
   
-  /* Styling for buttons */
+
   .button {
     padding: 10px 20px;
     margin: 10px;
@@ -42,7 +41,7 @@ body {
     color: #666666;
 }
   
-  /* Style for the headings */
+
   h1 {
     color: #333;
     margin-bottom: 20px;
@@ -54,7 +53,7 @@ body {
     margin-bottom: 30px;
   }
   
-  /* Table Styling */
+
   table {
     width: 100%;
     margin-top: 20px;
@@ -79,15 +78,14 @@ body {
     color: #ccc;
   }
   
-  /* Form Fields Styling */
+
   mat-form-field {
     margin-bottom: 20px;
     width: 100%;
     max-width: 300px;
     display: inline-block;
   }
-  
-  /* Styling for the mat-button-toggle-group */
+
   mat-button-toggle-group {
     display: flex;
     justify-content: center;

@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { Observable} from 'rxjs';
 import { Job } from '../interfaces/job';
 import { Dashboard } from '../interfaces/dashboard';
+import { Users } from '../interfaces/workerRequest';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  
+  private tokenKey = 'token';
   private apiUrl = 'https://localhost:44330/api';
 
   constructor(
@@ -34,10 +35,7 @@ export class UserService {
   }
 
 
-  logoutUser():void{
-    localStorage.removeItem('token');
-    this.route.navigate(['/login']);
-  }
+
 
   getSchedules():Observable<Dashboard[]>{
     return this.http.get<Dashboard[]>(`${this.apiUrl}/User/dashboard`)
@@ -45,11 +43,46 @@ export class UserService {
 
   postSchedule(date:any):Observable<any>{
     console.log('Posting:',date);
-    return this.http.post<any>(`${this.apiUrl}/Worker/add-schedule-request`,date);
+    return this.http.post(`${this.apiUrl}/Worker/add-schedule-request`,date);
+  }
+
+  deleteRequest(ID:any):Observable<any>{
+    return this.http.delete(`${this.apiUrl}/Admin/delete-schedule/${ID}`,ID);
+  }
+
+  approveRequest(Id:any):Observable<any>{
+    console.log("ID=",Id);
+    console.log('Posting to:', `${this.apiUrl}/Admin/approve-schedule-request`);
+    return this.http.post(`${this.apiUrl}/Admin/approve-schedule-request`,Id);
   }
   
-  
-   
+  getUsers():Observable<Users[]>{
+    return this.http.get<Users[]>(`${this.apiUrl}/User/users`)
+  }
+
+  deleteUser(userId:any):Observable<any>{
+    return this.http.delete(`${this.apiUrl}/Admin/delete-user/${userId}`,userId);
+  }
+  ChangeUSerRole(user:any):Observable<any>{
+    const headers=new HttpHeaders({'content-type':'application/json'});
+    return this.http.post(`${this.apiUrl}/Admin/change-user-role`,user,
+      {headers, responseType: 'text' as 'json' }
+    );
+  }
+
+  deleteJob(jobId:any):Observable<any>{
+    return this.http.delete(`${this.apiUrl}/Admin/delete-job/${jobId}`,jobId)
+  }
+    
+  addJob(jobTitle:any):Observable<Job>{
+    console.log("heheee",jobTitle);
+    const headers=new HttpHeaders({'content-type':'application/json'});
+    return this.http.post<Job>(`${this.apiUrl}/Admin/add-new-job`,jobTitle,
+      {headers, responseType: 'text' as 'json'  }
+   )
+  }
+
+
   decodeToken(token: string|null): any{
     if(!token) return null;
 
@@ -61,8 +94,48 @@ export class UserService {
     }
    }  
 
+     isLoggedIn(): boolean {
+      if(localStorage.getItem("token")==null){
+       return false
+      }
+      else{
+       return true
+      }
+     }
+   
+     getToken(): string | null {
+       return localStorage.getItem(this.tokenKey);
+     }
+   
+     getUserRole(token: string|null): string | null {
+       const decoded = this.decodeToken(token);
+       return decoded?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || null; 
+     }
+   
+     isAdmin(): boolean {
+      const token = localStorage.getItem('token');
+      const decoded = this.decodeToken(token);
+      return decoded?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === '1'; // or any check you need
+    }
+    
+    isWorker(): boolean {
+      const token = localStorage.getItem('token');
+      const decoded = this.decodeToken(token);
+      return decoded?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === '2'; // or any check you need
+    }
+    
+    logoutUser(): void {
+      localStorage.removeItem('token');
+      this.route.navigate(['/login']);
+    }
 
-}
+
+
+   }
+   
+
+
+   
 
 
 

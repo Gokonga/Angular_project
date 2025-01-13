@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 
@@ -26,6 +27,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     LoginComponent,
     AdminComponent,
     WorkerComponent,
+    NavbarComponent,
     
 
     
