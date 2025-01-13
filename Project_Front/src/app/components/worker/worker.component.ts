@@ -106,6 +106,8 @@ export class WorkerComponent {
       this.userservice.postSchedule(request).subscribe({
        next:(response) => {
           console.log('Schedule submitted successfully', response);
+          this.selectedShift='';
+          this.selectedDate=null;
         },
         error:(err) => {
           console.error('Error submitting schedule', err);

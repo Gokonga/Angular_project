@@ -50,8 +50,8 @@ export class UserService {
     return this.http.delete(`${this.apiUrl}/Admin/delete-schedule/${ID}`,ID);
   }
 
-  approveRequest(Id:any):Observable<any>{
-    console.log("ID=",Id);
+  approveRequest(Id:Number):Observable<any>{
+    console.log("ID",Id);
     console.log('Posting to:', `${this.apiUrl}/Admin/approve-schedule-request`);
     return this.http.post(`${this.apiUrl}/Admin/approve-schedule-request`,Id);
   }

@@ -4,6 +4,7 @@ import { ScheduleService } from 'src/app/services/schedule.service';
 import { CurrentWeekDates,CurrentWeekSchedule, Dashboard,} from 'src/app/interfaces/dashboard';
 import { Job } from 'src/app/interfaces/job';
 import { Users } from 'src/app/interfaces/workerRequest';
+import { scheduled } from 'rxjs';
 
 
 
@@ -135,15 +136,16 @@ removeRequest(ScheduleId:any){
   });
 }
 
-acceptRequest(ScheduleId:any){
-  this.userservice.approveRequest(ScheduleId).subscribe({
-    next:(response) => {
-      console.log('Schedule added successfully', response);
+acceptRequest(ScheduleId:Number){
+  this.userservice.approveRequest(32).subscribe({
+    next:(response)=>{
+      console.log("Schedule added succesfully",response)
     },
-    error:(err) => {
-      console.error('Error added schedule', err);
-      }
-    });
+    error:(e)=>{
+      console.log("error adding Schedule",e);
+      console.log("error",e.error)
+    }
+  });
  }
 
 
@@ -202,7 +204,7 @@ acceptRequest(ScheduleId:any){
 
  addNewJOb(jobTitle:any){
   const jobbe={title:jobTitle};
-  this.newJob='';
+  // this.newJob='';
   this.userservice.addJob(jobbe).subscribe({
     next:(response)=>{
       console.log("Job added Succsefully")
