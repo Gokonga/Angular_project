@@ -23,6 +23,7 @@ export class LoginComponent {
 
   ngOnInit(){
     this.CreateLoginForm();
+    localStorage.clear();
 
   }
 

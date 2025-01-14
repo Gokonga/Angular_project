@@ -14,11 +14,9 @@ export class NavbarComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    // Check login status and user roles on component init
     this.updateLoginStatus();
   }
     ngDoCheck() {
-      // Check for login status changes on every change detection cycle
       this.updateLoginStatus();
     }
   
@@ -31,6 +29,6 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.userService.logoutUser();
-    this.updateLoginStatus(); // Update login status immediately after logout
+    this.updateLoginStatus(); 
   }
 }

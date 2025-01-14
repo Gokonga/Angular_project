@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable} from 'rxjs';
 import { Job } from '../interfaces/job';
@@ -50,10 +50,11 @@ export class UserService {
     return this.http.delete(`${this.apiUrl}/Admin/delete-schedule/${ID}`,ID);
   }
 
-  approveRequest(Id:Number):Observable<any>{
-    console.log("ID",Id);
+  approveRequest(ScheduleId:Number):Observable<any>{
+    console.log("ID",ScheduleId);
     console.log('Posting to:', `${this.apiUrl}/Admin/approve-schedule-request`);
-    return this.http.post(`${this.apiUrl}/Admin/approve-schedule-request`,Id);
+    const params = new HttpParams().set('ScheduleId',ScheduleId.toString());
+    return this.http.post(`${this.apiUrl}/Admin/approve-schedule-request`,null, {params});
   }
   
   getUsers():Observable<Users[]>{
@@ -64,6 +65,7 @@ export class UserService {
     return this.http.delete(`${this.apiUrl}/Admin/delete-user/${userId}`,userId);
   }
   ChangeUSerRole(user:any):Observable<any>{
+
     const headers=new HttpHeaders({'content-type':'application/json'});
     return this.http.post(`${this.apiUrl}/Admin/change-user-role`,user,
       {headers, responseType: 'text' as 'json' }
@@ -75,7 +77,6 @@ export class UserService {
   }
     
   addJob(jobTitle:any):Observable<Job>{
-    console.log("heheee",jobTitle);
     const headers=new HttpHeaders({'content-type':'application/json'});
     return this.http.post<Job>(`${this.apiUrl}/Admin/add-new-job`,jobTitle,
       {headers, responseType: 'text' as 'json'  }
@@ -94,7 +95,7 @@ export class UserService {
     }
    }  
 
-     isLoggedIn(): boolean {
+  isLoggedIn(): boolean {
       if(localStorage.getItem("token")==null){
        return false
       }
@@ -103,28 +104,28 @@ export class UserService {
       }
      }
    
-     getToken(): string | null {
+  getToken(): string | null {
        return localStorage.getItem(this.tokenKey);
      }
    
-     getUserRole(token: string|null): string | null {
+  getUserRole(token: string|null): string | null {
        const decoded = this.decodeToken(token);
        return decoded?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || null; 
      }
    
-     isAdmin(): boolean {
+  isAdmin(): boolean {
       const token = localStorage.getItem('token');
       const decoded = this.decodeToken(token);
-      return decoded?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === '1'; // or any check you need
+      return decoded?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === '1'; 
     }
     
-    isWorker(): boolean {
+isWorker(): boolean {
       const token = localStorage.getItem('token');
       const decoded = this.decodeToken(token);
-      return decoded?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === '2'; // or any check you need
+      return decoded?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === '2'; 
     }
     
-    logoutUser(): void {
+logoutUser(): void {
       localStorage.removeItem('token');
       this.route.navigate(['/login']);
     }

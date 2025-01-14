@@ -18,8 +18,15 @@
         <tr *ngFor="let job of jobs">
           <td>{{ job.title }}</td>
           <td *ngFor="let weekday of weekDates"> 
-            <div *ngFor="let day of WeekSchedule">
-              <span *ngIf="day.jobTitle==job.title && day.startTime.getDate()==weekday.day">{{getshifttime(day)}}-{{ day.firstName }}&nbsp;{{ day.lastName }}</span>
+            <div *ngFor="let day of dashboard">
+              <span 
+              *ngIf="day.jobTitle==job.title 
+              && day.startTime.toDateString()== weekday.daydate.toDateString() 
+              && day.isApproved==true">
+
+              {{getshifttime(day)}}-{{ day.firstName }}&nbsp;{{ day.lastName }}
+
+            </span>
               <span *ngIf="day.jobTitle !== job.title" class="empty-slot"></span>
             </div>  
           </td>

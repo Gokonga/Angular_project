@@ -1,18 +1,4 @@
-export interface Dashboard{
-
-    id: number,
-    startTime: string,
-    endTime: string,
-    userId: number,
-    firstName: string,
-    lastName: string,
-    jobId: number,
-    jobTitle: string,
-    isApproved: boolean
-
-}
-
-export interface CurrentWeekSchedule {
+export interface Dashboard {
 
     id: number,
     startTime: Date,
@@ -28,6 +14,7 @@ export interface CurrentWeekSchedule {
 }
 
 export interface CurrentWeekDates{
+    daydate:Date,
     month:string,
     weekday:string,
     day:number

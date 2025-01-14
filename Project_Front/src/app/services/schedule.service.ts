@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Dashboard } from '../interfaces/dashboard';
-import { CurrentWeekSchedule,CurrentWeekDates } from '../interfaces/dashboard';
+import {CurrentWeekDates } from '../interfaces/dashboard';
 import { workerRequest } from '../interfaces/workerRequest';
 
 @Injectable({
@@ -33,29 +33,6 @@ export class ScheduleService {
 
     }
 
-    FilterArray(
-      dashboard:Dashboard[],
-      currentWeekStart:Date,
-      currentWeekEnd:Date
-    ):CurrentWeekSchedule[]{
-      return dashboard.filter(item => {
-        const itemStartTime = new Date(item.startTime);
-        const itemEndTime = new Date(item.endTime);
-        return (
-          (itemStartTime >= currentWeekStart && itemEndTime <= currentWeekEnd) && item.isApproved==true
-        );
-      }).map(item => ({
-        id: item.id,
-        startTime: new Date(item.startTime),
-        endTime: new Date(item.endTime),
-        userId: item.userId,
-        firstName: item.firstName,
-        lastName: item.lastName,
-        jobId: item.jobId,
-        jobTitle: item.jobTitle,
-        isApproved: item.isApproved,
-      }));
-  }
 
   getPendingRequests( dashboard:Dashboard[]):Dashboard[]{
     return dashboard.filter(item =>{
@@ -70,8 +47,8 @@ export class ScheduleService {
       "July", "August", "September", "October", "November", "December"
     ];
     const weekdays=[
-      "Monday", "Tuesday", "Wednesday", 
-      "Thursday", "Friday", "Saturday", "Sunday"
+     "Sunday", "Monday", "Tuesday", "Wednesday", 
+      "Thursday", "Friday", "Saturday", 
     ]
     const thisweek:CurrentWeekDates[]=[];
     for(let i=new Date(start); i<=end; i.setDate(i.getDate() + 1)){
@@ -79,8 +56,11 @@ export class ScheduleService {
         day: i.getDate(),
         weekday:weekdays[i.getDay()],
         month: monthNames[i.getMonth()],
-      }); 
+        daydate:new Date(i)
+      });
     }
+    console.log("start time",start)
+    console.log("DaTe i need",thisweek)
     return  thisweek;
   }
 
@@ -93,5 +73,4 @@ export class ScheduleService {
   }
 
   }
-
   

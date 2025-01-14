@@ -19,23 +19,3 @@ export const checkPassword: ValidatorFn=(
     return null;
   };
 
-
-  
-// export function Checkpassword(password:string,confirmPassword:string):ValidatorFn {
-//   return (group:AbstractControl):ValidationErrors|null=>{
-//     const passwordControl =group.get(password);
-//     const confirmPasswordControl=group.get(confirmPassword)
-
-//     if(!passwordControl || !confirmPasswordControl){
-//       return null;
-//     }
-//     if (passwordControl.value !== confirmPasswordControl.value){
-//       confirmPasswordControl.setErrors({ passwordMismatch: true });
-//       return {passwordMismatch:true};
-//     }
-//     else{
-//     confirmPasswordControl.setErrors(null);
-//     }
-//     return null;
-//   };
-// }
