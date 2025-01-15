@@ -37,7 +37,6 @@ export class ScheduleService {
   getPendingRequests( dashboard:Dashboard[]):Dashboard[]{
     return dashboard.filter(item =>{
       return (item.isApproved==false)});
-
   }
 
   

@@ -116,4 +116,15 @@ body {
   .scrollable-box li {
     padding: 5px 0; 
   }
-  
+
+
+  span:hover {
+    background-color: #f0f8ff;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  td:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+  }

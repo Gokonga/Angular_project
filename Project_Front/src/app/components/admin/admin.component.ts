@@ -4,7 +4,6 @@ import { ScheduleService } from 'src/app/services/schedule.service';
 import { CurrentWeekDates, Dashboard,} from 'src/app/interfaces/dashboard';
 import { Job } from 'src/app/interfaces/job';
 import { Users } from 'src/app/interfaces/workerRequest';
-import { last } from 'rxjs';
 
 
 
@@ -16,10 +15,7 @@ import { last } from 'rxjs';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
-  showRequests:boolean=false;
-  showUsers:boolean=false;
-  ShowJobs:boolean=false;
-  showDashboard:boolean=false;
+  ShowControl=0;
   newJob='';
   newId='';
   ScheduleID:Number | null=null;
@@ -27,9 +23,9 @@ export class AdminComponent {
   weekDates:CurrentWeekDates[]=[];
   jobs:Job[]=[];
   dashboard:Dashboard[]=[];
-  PendingSchedule:Dashboard[]=[];
   WeekStart:Date=new Date();
   WeekEnd:Date=new Date();
+  hoveredDay: any = null;
 
   constructor(
     private userservice:UserService,
@@ -41,8 +37,6 @@ export class AdminComponent {
     this.fetchJobOptions();
     this.updateWeekRange();
     
-    
-
     
   }
 
@@ -121,22 +115,12 @@ export class AdminComponent {
 
   }
 
-ShowWholeDashboard(){
-  this.showDashboard=!this.showDashboard;
-  }
-
-AproveSchedules(){
-  this.showRequests=!this.showRequests;
-  if(this.showRequests==true){
-  this.PendingSchedule=this.Schedule.getPendingRequests(this.dashboard);
-  }
-}
 
 removeRequest(ScheduleId:Number){
   this.userservice.deleteRequest(ScheduleId).subscribe({
     next:(response) => {
       console.log('Schedule deleted successfully', response);
-      this.PendingSchedule = this.PendingSchedule.filter(worker => worker.id !== ScheduleId);
+      this.fetchSchedules();
     },
     error:(err) => {
       console.error('Error deleting schedule', err);
@@ -148,7 +132,7 @@ acceptRequest(Id:any){
   this.userservice.approveRequest(Id).subscribe({
     next:(response)=>{
       console.log("Schedule added succesfully",response)
-      this.PendingSchedule = this.PendingSchedule.filter(worker => worker.id !== Id);
+      this.fetchSchedules();
     },
     error:(e)=>{
       console.log("error adding Schedule",e);
@@ -157,10 +141,11 @@ acceptRequest(Id:any){
   });
  }
 
+ ShowRequests(){
+  this.Schedule.getPendingRequests(this.dashboard);
+  }
 
  ShowUsers(){
-  this.showUsers=!this.showUsers;
-  if(this.showUsers==true){
     this.userservice.getUsers().subscribe({
       next:(response)=>{
         console.log("users Fetched",response)
@@ -171,13 +156,14 @@ acceptRequest(Id:any){
       }
     });
   }
- }
+
 
  removeUser(userId:any){
   this.userservice.deleteUser(userId).subscribe({
     next:(response)=>{
       console.log("User deleted Succsefully")
-      this.users = this.users.filter(user => user.id !== userId);
+      this.ShowUsers();
+      this.fetchSchedules();
     },
     error:(err)=>{
       console.error("Error deleting User",err)
@@ -192,7 +178,8 @@ acceptRequest(Id:any){
     this.newId='';
   this.userservice.ChangeUSerRole(user).subscribe({
     next:(response)=>{
-      console.log("User role changed Succsefully",response)
+      console.log("User role changed Succsefully",response);
+      this.ShowUsers();
     },
     error:(err)=>{
       console.error("Error changing  User role",err)
@@ -205,7 +192,7 @@ acceptRequest(Id:any){
   this.userservice.deleteJob(jobId).subscribe({
     next:(response)=>{
       console.log("Job deleted Succsefully",response)
-      this.jobs = this.jobs.filter(job => job.id !== jobId);
+      this.fetchJobOptions();
     },
     error:(err)=>{
       console.error("Error deleting Job",err)
@@ -220,6 +207,7 @@ acceptRequest(Id:any){
   this.userservice.addJob(jobbe).subscribe({
     next:(response)=>{
       console.log("Job added Succsefully",response)
+      this.fetchJobOptions();
     },
     error:(err)=>{
       console.error("Error adding Job",err)
@@ -227,13 +215,10 @@ acceptRequest(Id:any){
   })
  }
 
-showJobs(){
-  this.ShowJobs=!this.ShowJobs;
-  if(this.ShowJobs==true){
-    this.fetchJobOptions();
-  }
-}
-
+ seeTitle(Id:any){
+  const title=this.jobs.find(job=>job.id===Id)
+  return title?.title
+ }
 
 
 }

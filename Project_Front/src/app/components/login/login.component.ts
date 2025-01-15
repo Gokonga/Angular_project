@@ -43,7 +43,7 @@ export class LoginComponent {
       const userdata=this.loginForm.value;
       this.userService.loginUser(userdata).subscribe({
         next:(response)=>{
-          console.log("Logged in");
+          console.log("Logged in",response);
           const jwtToken=response;
           localStorage.setItem('token',jwtToken);
 

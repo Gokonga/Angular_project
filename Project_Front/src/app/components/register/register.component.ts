@@ -63,11 +63,11 @@ ngOnInit():void{
     if(this.registrationForm.valid){
       const {confirmPassword,jobId,...userData}=this.registrationForm.value;
       const job=jobId as Job;
-      
       this.userService.registerUser({...userData,jobId: job.id}).subscribe({
         next:(response)=>{
           console.log("Registration successful: ",response);
           this.registrationForm.reset();
+          this.router.navigate(['/login'])
         },
         error: (error) => {
           console.log('Registration failed: ', error);
